@@ -14,10 +14,10 @@ public class Mesa {
 	final int PRECIO_MATERIAL_ALUMINIO=5;
 	final int PRECIO_MATERIAL_PLASTICO=2;
 	
-	final int MATERIAL_MADERA=1;
-	final int MATERIAL_ACERO=1;
-	final int MATERIAL_ALUMINIO=1;
-	final int MATERIAL_PLASTICO=1;
+	public static final int MATERIAL_MADERA=1;
+	public static final int MATERIAL_ACERO=2;
+	public static final int MATERIAL_ALUMINIO=3;
+	public static final int MATERIAL_PLASTICO=4;
 	
 	
 	final int PRECIO_COLOR_CUSTOM=23;
@@ -26,20 +26,36 @@ public class Mesa {
 	
 	// 4. Atributos siempre private para mantener la encapsulacion
 	private int numeroPatas;
-	private int M2;
-	private String Color;
-	private int Material;
-	/*
-	 * 5. Metodos
-	 * 
-	 * 5.1 Constructores 5.2 Getters & Setters 5.3 Otros
-	 * 
-	 * 
-	 */
+	private int dimension;
+	private String color;
+	private int material;
+	
+
+	
+	
 
 	public Mesa() {
+		//Constructor por defecto siempre llama a super
 		super();
+		//Inicializar elementos
 		this.numeroPatas = 4;
+		this.dimension=1;
+		this.color="blanco";
+		this.material=MATERIAL_MADERA;
+	}
+
+	//Si pones mas constructores lo que hacen es sobrecargar por lo que añade esos elementos
+	public Mesa(int material) {
+		
+		this(); //llamar siempre al constructor por defecto
+		this.material=material;
+		
+		
+	}
+	
+	public Mesa(int material,int dimension) {
+		this(material);
+		this.dimension=dimension;
 	}
 
 	/**
@@ -50,16 +66,16 @@ public class Mesa {
 	 *            en caso de ser negativo se inicializa con 0
 	 */
 
-	public Mesa(int numeroPatas) {
-		super();
-		setNumeroPatas(numeroPatas);
-	}
-
-	
 
 
+	/*
+	 * 5. Metodos
+	 * 
+	 * 5.1 Constructores 5.2 Getters & Setters 5.3 Otros
+	 * 
+	 * 
+	 */
 
-	
 	//Getter y Setter
 	
 	public int getNumeroPatas() {
@@ -73,38 +89,89 @@ public class Mesa {
 		// pones el valor de la variable
 	}
 	
-	public int getPrecio() {
-		
-		return 0;
+	
+	public int getDimension() {
+		return dimension;
 	}
 
-	public int getM2() {
-		return M2;
-	}
-
-	public void setM2(int m2) {
-		M2 = m2;
+	public void setDimension(int dimension) {
+		this.dimension = dimension;
 	}
 
 	public String getColor() {
-		return Color;
+		return color;
 	}
 
 	public void setColor(String color) {
-		Color = color;
+		this.color = color;
 	}
 
 	public int getMaterial() {
-		return Material;
+		return material;
 	}
 
 	public void setMaterial(int material) {
-		Material = material;
+		this.material = material;
 	}
-	
-	//To String
+	@Override
 	public String toString() {
-		return "Mesa [numeroPatas=" + numeroPatas + "]";
+		return "Mesa [numeroPatas= " + numeroPatas + ", dimension= " + dimension + ", color= " + color + ", material= "
+				+ material +" precio "+ getPrecio()+"]";
 	}
+
+	
+	
+	/**
+	 * Calcular el precio de la mesa en funcion de los materiales usados.
+	 * 
+	 * @see Consulta todas las constates definidas para los precios
+	 * @return int precio en euros
+	 */
+	public int getPrecio() {
+		int resul = 0;
+		
+	
+		 resul= (numeroPatas*PRECIO_PATA)+(dimension*PRECIOM2);
+			if (color==PRECIO_COLOR_NAME_CUSTOM) {
+				
+				resul=resul+PRECIO_COLOR_CUSTOM;
+			}
+			else {
+				
+				resul= resul +0;
+				
+			}
+		 switch (material) {
+		case 1:
+			
+				resul= resul+PRECIO_MATERIAL_MADERA;
+			
+			break;
+		case 2:
+			
+				resul= resul+PRECIO_MATERIAL_ACERO;
+			
+			break;
+		case 3:
+	
+				resul= resul+PRECIO_MATERIAL_ALUMINIO;
+	
+				break;
+		case 4:
+	
+				resul= resul+PRECIO_MATERIAL_PLASTICO;
+	
+				break;
+
+		default:
+				break;
+		}
+		return resul;
+		
+		
+	}
+
+
+
 
 }
