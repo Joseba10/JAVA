@@ -6,13 +6,13 @@ package com.ipartek.formacion.capitulo3;
 public class Mesa {
 	
 	
-	//Precio en Euros
-	final int PRECIO_PATA=1;
-	final int PRECIOM2=5;
-	final int PRECIO_MATERIAL_MADERA=4;
-	final int PRECIO_MATERIAL_ACERO=6;
-	final int PRECIO_MATERIAL_ALUMINIO=5;
-	final int PRECIO_MATERIAL_PLASTICO=2;
+	//Precio en Euros7
+	public static final int PRECIO_PATA=1;
+	public static final int PRECIOM2=5;
+	public static final int PRECIO_MATERIAL_MADERA=4;
+	public static final int PRECIO_MATERIAL_ACERO=6;
+	public static final int PRECIO_MATERIAL_ALUMINIO=5;
+	public static final int PRECIO_MATERIAL_PLASTICO=2;
 	
 	public static final int MATERIAL_MADERA=1;
 	public static final int MATERIAL_ACERO=2;
@@ -20,8 +20,8 @@ public class Mesa {
 	public static final int MATERIAL_PLASTICO=4;
 	
 	
-	final int PRECIO_COLOR_CUSTOM=23;
-	final String PRECIO_COLOR_NAME_CUSTOM="custom";
+	public static final int PRECIO_COLOR_CUSTOM=23;
+	public static final String PRECIO_COLOR_NAME_CUSTOM="custom";
 	
 	
 	// 4. Atributos siempre private para mantener la encapsulacion
@@ -84,7 +84,7 @@ public class Mesa {
 	
 	public void setNumeroPatas(int numeroPatas) {
 
-		this.numeroPatas = (numeroPatas < 0) ? 0 : numeroPatas;
+		this.numeroPatas = (numeroPatas <= 0) ? 1 : numeroPatas;
 		// Si el numero de patas es menor que 0 pones 0 si no
 		// pones el valor de la variable
 	}
@@ -130,36 +130,40 @@ public class Mesa {
 	public int getPrecio() {
 		int resul = 0;
 		
-	
-		 resul= (numeroPatas*PRECIO_PATA)+(dimension*PRECIOM2);
-			if (color==PRECIO_COLOR_NAME_CUSTOM) {
+	// += quiere decir agregar contenido a la variable
+		 resul+= this.numeroPatas*PRECIO_PATA;
+		 resul+=this.dimension*PRECIOM2;
+		 
+		 //Si es null no casca de la otra manera si ponias el color delante si cascaba no funcionaba
+			if (PRECIO_COLOR_NAME_CUSTOM.equalsIgnoreCase(this.color)) {
 				
-				resul=resul+PRECIO_COLOR_CUSTOM;
+				resul+=PRECIO_COLOR_CUSTOM;
 			}
 			else {
 				
 				resul= resul +0;
 				
 			}
-		 switch (material) {
+			
+		 switch (this.material) {
 		case 1:
 			
-				resul= resul+PRECIO_MATERIAL_MADERA;
+				resul+=PRECIO_MATERIAL_MADERA;
 			
 			break;
 		case 2:
 			
-				resul= resul+PRECIO_MATERIAL_ACERO;
+				resul+=PRECIO_MATERIAL_ACERO;
 			
 			break;
 		case 3:
 	
-				resul= resul+PRECIO_MATERIAL_ALUMINIO;
+				resul+=PRECIO_MATERIAL_ALUMINIO;
 	
 				break;
 		case 4:
 	
-				resul= resul+PRECIO_MATERIAL_PLASTICO;
+				resul+=PRECIO_MATERIAL_PLASTICO;
 	
 				break;
 
